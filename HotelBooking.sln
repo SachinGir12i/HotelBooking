@@ -5,6 +5,12 @@ VisualStudioVersion = 17.14.36414.22 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking", "HotelBooking.csproj", "{953E7382-1CD2-4EDA-9CB7-C3D996C4E223}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking.Domain", "..\HotelBooking.domain\HotelBooking.Domain.csproj", "{7239A300-5D86-43EF-9763-B6B199500E69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking.Application", "..\HotelBooking.Application\HotelBooking.Application.csproj", "{15FFEE59-0070-4839-8570-1E1F794CF9CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking.Infrastructure", "..\HotelBooking.Infrastructure\HotelBooking.Infrastructure.csproj", "{19442BAB-7CDB-4328-BFCD-75E7D0FD1F7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{953E7382-1CD2-4EDA-9CB7-C3D996C4E223}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{953E7382-1CD2-4EDA-9CB7-C3D996C4E223}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{953E7382-1CD2-4EDA-9CB7-C3D996C4E223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7239A300-5D86-43EF-9763-B6B199500E69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7239A300-5D86-43EF-9763-B6B199500E69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7239A300-5D86-43EF-9763-B6B199500E69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7239A300-5D86-43EF-9763-B6B199500E69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15FFEE59-0070-4839-8570-1E1F794CF9CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15FFEE59-0070-4839-8570-1E1F794CF9CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15FFEE59-0070-4839-8570-1E1F794CF9CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15FFEE59-0070-4839-8570-1E1F794CF9CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19442BAB-7CDB-4328-BFCD-75E7D0FD1F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19442BAB-7CDB-4328-BFCD-75E7D0FD1F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19442BAB-7CDB-4328-BFCD-75E7D0FD1F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19442BAB-7CDB-4328-BFCD-75E7D0FD1F7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
