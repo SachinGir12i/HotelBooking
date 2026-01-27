@@ -29,16 +29,25 @@ namespace HotelBooking.Controllers
             if (obj.Name == obj.Description)
             {
                 {
-                    ModelState.AddModelError("CustomError", "The Description cannot be the same as the Name.");
+                    ModelState.AddModelError("name", "The Description cannot be the same as the Name.");
                 }
             }
-                if (ModelState.IsValid)
-                {
-                    _db.Villas.Add(obj);
-                    _db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                return View(obj);
+            if (ModelState.IsValid)
+            {
+                _db.Villas.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
+        public IActionResult Update(int villaId)
+        {
+            Villa? obj = _db.Villas.FirstOrDefault(u => u.Id == villaId);
+            if (obj == null)
+            {
+                return RedirectToAction("Error","Home");
+            }
+            return View(obj);
         }
     }
 }
