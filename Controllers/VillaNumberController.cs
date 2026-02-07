@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using HotelBooking.Infrastructure.Data;
 using HotelBooking.Domain.Entities;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
+using HotelBooking.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelBooking.Controllers
 {
@@ -14,31 +16,59 @@ namespace HotelBooking.Controllers
         }
         public IActionResult Index()
         {
-            var villaNumbers = _db.VillaNumbers.ToList();
+            var villaNumbers = _db.VillaNumbers.Include(u=>u.Villa).ToList();
             return View(villaNumbers);
         }
 
         public IActionResult Create()
         {
-            return View();
+            VillaNumberVM villaNumberVM = new ()
+            {
+                
+                VillaList = _db.Villas.ToList().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                })
+            };  
+            
+            return View(villaNumberVM);
         }
 
         [HttpPost]
-        public IActionResult Create(Villa obj)
+        public IActionResult Create(VillaNumberVM obj)
         {
-            if (obj.Name == obj.Description)
+            bool roomNumberExists = _db.VillaNumbers.Any(u => u.Villa_Number == obj.VillaNumber.Villa_Number);
+            ModelState.Remove("Villa");
+            if (!ModelState.IsValid)
             {
+                foreach (var state in ModelState)
                 {
-                    ModelState.AddModelError("name", "The Description cannot be the same as the Name.");
+                    var key = state.Key; // property name
+                    var errors = state.Value.Errors;
+                    foreach (var error in errors)
+                    {
+                        TempData["success"] = ($"Property: {key}, Error: {error.ErrorMessage}");
+                    }
                 }
             }
-            if (ModelState.IsValid)
+
+            if (ModelState.IsValid && !roomNumberExists)
             {
-                _db.Villas.Add(obj);
+                _db.VillaNumbers.Add(obj.VillaNumber);
                 _db.SaveChanges();
-                TempData["success"] = "Villa created successfully";
+                TempData["success"] = "Villa Number created successfully";
                 return RedirectToAction("Index");
             }
+            if(roomNumberExists)
+            {
+                TempData["error"] = "The vills number alresdy exist.";
+            }
+            obj.VillaList = _db.Villas.ToList().Select(i => new SelectListItem
+            {
+                Text = i.Name,
+                Value = i.Id.ToString()
+            });
             return View(obj);
         }
 
