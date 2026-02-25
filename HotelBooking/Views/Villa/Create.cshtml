@@ -8,7 +8,7 @@
             </div>
         </div>
     <div class="card-body border p-4">
-        <form method="post" class="row">
+        <form method="post" class="row" enctype="multipart/form-data">
             <div class="p-3">
                 <div class="mb-3">
                     <label asp-for="Name" class="form-label"></label>
@@ -37,7 +37,8 @@
                 </div>
                 <div class="mb-3">
                     <label asp-for="ImageUrl" class="form-label"></label>
-                    <input asp-for="ImageUrl" class="form-control" />
+                    <input asp-for="ImageUrl" hidden class="form-control" />
+                    <input asp-for="Image" class="form-control border shadow" />
                     <span asp-validation-for="ImageUrl" class="text-danger"></span>
                 </div>
 
