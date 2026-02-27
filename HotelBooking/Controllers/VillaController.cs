@@ -85,6 +85,26 @@ namespace HotelBooking.Controllers
             
             if (ModelState.IsValid && obj.Id>0)
             {
+                if (obj.Image != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(obj.Image.FileName);
+                    string ImagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "VillaImage", fileName);
+
+                    if(!string.IsNullOrEmpty(obj.ImageUrl))
+                    {
+                        var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, obj.ImageUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+                    
+                    using var fileStream = new FileStream(ImagePath, FileMode.Create);
+                    obj.Image.CopyTo(fileStream);
+
+                    obj.ImageUrl = @"\images\VillaImage\" + fileName;
+                }
+
                 _unitOfWork.Villa.Update(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Villa updated successfully";
@@ -106,6 +126,17 @@ namespace HotelBooking.Controllers
         public IActionResult Delete(Villa obj)
         {
             Villa? objFromDb = _unitOfWork.Villa.Get(u => u.Id == obj.Id);
+            if (obj.Image != null)
+            {
+                if (!string.IsNullOrEmpty(objFromDb.ImageUrl))
+                {
+                    var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, objFromDb.ImageUrl.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                } 
+            }
 
             if (objFromDb is not null)
             {
