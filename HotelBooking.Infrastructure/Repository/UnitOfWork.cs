@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HotelBooking.Application.Common.Interfaces;
+using HotelBooking.Domain.Entities;
 using HotelBooking.Infrastructure.Data;
 
 namespace HotelBooking.Infrastructure.Repository
@@ -13,10 +14,12 @@ namespace HotelBooking.Infrastructure.Repository
         private readonly ApplicationDbContext _db;
         public IVillaRepository Villa { get; private set; }
         public IVillaNumberRepository VillaNumber { get; private set; }
+        public IAmenityRepository Amenity { get; private set; }
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
             Villa = new VillaRepository(_db);
+            Amenity = new AmenityRepository(_db);
             VillaNumber = new VillaNumberRepository(_db);
         }
 
